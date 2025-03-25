@@ -1,6 +1,9 @@
 CREATE DATABASE rhtechtest;
 USE rhtechtest;
 
+DROP table bookings;
+DROP TABLE properties;
+
 CREATE TABLE properties
 (
 	id				INT unsigned NOT NULL AUTO_INCREMENT,
