@@ -43,7 +43,7 @@ public class PropertyControllerTest {
     }
 
     @Test
-    public void whenGetProperties_thenCallService() throws Exception {
+    public void whenGetAllProperties_thenCallService() throws Exception {
         mockMvc.perform(get("/properties"));
 
         then(propertyService)
@@ -52,7 +52,7 @@ public class PropertyControllerTest {
     }
 
     @Test
-    public void givenProperties_whenGetProperties_thenReturnProperties() throws Exception {
+    public void givenProperties_whenGetAllProperties_thenReturnAllProperties() throws Exception {
         var expectedProperties = generateTestProperties();
 
         given(propertyService.getAllProperties())

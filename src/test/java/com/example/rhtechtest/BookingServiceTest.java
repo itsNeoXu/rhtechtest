@@ -41,7 +41,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    void givenBookings_whenGetAllBookings_thenReturnBookings() {
+    void givenBookings_whenGetAllBookings_thenReturnAllBookings() {
         var expectedBookings = generateTestBookings();
         var actualBookings = bookingService.getAllBookings();
 

@@ -39,7 +39,7 @@ public class PropertyServiceTest {
     }
 
     @Test
-    void givenProperties_whenGetAllProperties_thenReturnProperties() {
+    void givenProperties_whenGetAllProperties_thenReturnAllProperties() {
         var expectedProperties = generateTestProperties();
         var actualProperties = propertyService.getAllProperties();
 

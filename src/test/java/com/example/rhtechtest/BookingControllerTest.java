@@ -45,7 +45,7 @@ public class BookingControllerTest {
     }
 
     @Test
-    public void whenGetBookings_thenCallService() throws Exception {
+    public void whenGetAllBookings_thenCallService() throws Exception {
         mockMvc.perform(get("/bookings"));
 
         then(bookingService)
@@ -54,7 +54,7 @@ public class BookingControllerTest {
     }
 
     @Test
-    public void givenBookings_whenGetBookings_thenReturnBookings() throws Exception {
+    public void givenBookings_whenGetAllBookings_thenReturnAllBookings() throws Exception {
         var expectedBookings = generateTestBookings();
 
         given(bookingService.getAllBookings())
