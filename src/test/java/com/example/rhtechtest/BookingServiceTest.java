@@ -1,7 +1,6 @@
 package com.example.rhtechtest;
 
 import org.assertj.core.api.BDDAssertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -23,14 +22,6 @@ public class BookingServiceTest {
     @InjectMocks
     private BookingService bookingService;
 
-    @BeforeEach
-    void setUp() {
-        var expectedBookings = generateTestBookings();
-
-        given(bookingRepository.findAll())
-                .willReturn(expectedBookings);
-    }
-
     @Test
     void whenGetAllBookings_thenCallRepository() {
         bookingService.getAllBookings();
@@ -43,10 +34,38 @@ public class BookingServiceTest {
     @Test
     void givenBookings_whenGetAllBookings_thenReturnAllBookings() {
         var expectedBookings = generateTestBookings();
+
+        given(bookingRepository.findAll())
+                .willReturn(expectedBookings);
+
         var actualBookings = bookingService.getAllBookings();
 
         BDDAssertions.then(actualBookings)
                 .isEqualTo(expectedBookings);
+    }
+
+    @Test
+    void whenCreateBooking_thenCallRepository() {
+        var expectedBooking = generateTestBookings().get(0);
+
+        bookingService.createBooking(expectedBooking);
+
+        BDDMockito.then(bookingRepository)
+                .should()
+                .save(expectedBooking);
+    }
+
+    @Test
+    void whenCreateBooking_thenReturnBooking() {
+        var expectedBooking = generateTestBookings().get(0);
+
+        given(bookingRepository.save(expectedBooking))
+                .willReturn(expectedBooking);
+
+        var actualBooking = bookingService.createBooking(expectedBooking);
+
+        BDDAssertions.then(actualBooking)
+                .isEqualTo(expectedBooking);
     }
 
     private static List<Booking> generateTestBookings() {

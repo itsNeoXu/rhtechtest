@@ -3,6 +3,7 @@ package com.example.rhtechtest;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +24,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -74,6 +76,48 @@ public class BookingControllerTest {
                 });
 
         assertThat(actualBookings, containsInAnyOrder(expectedBookings.toArray()));
+    }
+
+    @Test
+    public void whenCreateBooking_thenCallService() throws Exception {
+        var expectedBooking = generateTestBookings().get(0);
+
+        var mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        var bookingBytes = mapper.writeValueAsBytes(expectedBooking);
+
+        mockMvc.perform(post("/bookings")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(bookingBytes));
+
+        then(bookingService)
+                .should()
+                .createBooking(expectedBooking);
+    }
+
+    @Test
+    public void whenCreateBooking_thenReturnBooking() throws Exception {
+        var expectedBooking = generateTestBookings().get(0);
+
+        given(bookingService.createBooking(expectedBooking))
+                .willReturn(expectedBooking);
+
+        var mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        var bookingBytes = mapper.writeValueAsBytes(expectedBooking);
+
+        var mvcResult = mockMvc.perform(post("/bookings")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(bookingBytes))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        var actualBooking = mapper.readValue(mvcResult.getResponse().getContentAsString(), Booking.class);
+
+        BDDAssertions.then(actualBooking)
+                .isEqualTo(expectedBooking);
     }
 
     private static List<Booking> generateTestBookings() {
