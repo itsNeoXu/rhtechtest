@@ -1,10 +1,18 @@
 package com.example.rhtechtest;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "bookings")
 public class Booking {
 
@@ -18,36 +26,4 @@ public class Booking {
     private LocalDate checkIn;
     @Column(name = "check_out")
     private LocalDate checkOut;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Property getProperty() {
-        return property;
-    }
-
-    public void setProperty(Property property) {
-        this.property = property;
-    }
-
-    public LocalDate getCheckIn() {
-        return checkIn;
-    }
-
-    public void setCheckIn(LocalDate checkIn) {
-        this.checkIn = checkIn;
-    }
-
-    public LocalDate getCheckOut() {
-        return checkOut;
-    }
-
-    public void setCheckOut(LocalDate checkOut) {
-        this.checkOut = checkOut;
-    }
 }

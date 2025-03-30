@@ -1,12 +1,12 @@
-CREATE DATABASE rhtechtest;
+CREATE DATABASE IF NOT EXISTS rhtechtest;
 USE rhtechtest;
 
-DROP table bookings;
-DROP TABLE properties;
+DROP table IF EXISTS bookings;
+DROP TABLE IF EXISTS properties;
 
 CREATE TABLE properties
 (
-	id				INT unsigned NOT NULL AUTO_INCREMENT,
+	id				BIGINT unsigned NOT NULL AUTO_INCREMENT,
     name 			VARCHAR(150) NOT NULL,
     location		VARCHAR(150) NOT NULL,
     type			VARCHAR(150) NOT NULL,
@@ -15,8 +15,8 @@ CREATE TABLE properties
 
 CREATE TABLE bookings
 (
-	id				INT unsigned NOT NULL AUTO_INCREMENT,
-    property_id		INT unsigned NOT NULL,
+	id				BIGINT unsigned NOT NULL AUTO_INCREMENT,
+    property_id		BIGINT unsigned NOT NULL,
     check_in		DATE NOT NULL,
     check_out		DATE NOT NULL,
     PRIMARY KEY		(id),
