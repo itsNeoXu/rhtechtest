@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "faf57d4e-db66-4fb1-b68f-7f03e9458710",
+		"name": "Res:Harmonics Technical Test API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2245675"
+	},
+	"item": [
+		{
+			"name": "Create booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"property\": {\n        \"id\": 1,\n        \"name\": \"The Greenhouse Loft\",\n        \"location\": \"London\",\n        \"type\": \"Apartment\"\n    },\n    \"checkIn\": \"2025-03-18\",\n    \"checkOut\": \"2025-03-21\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/bookings",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"bookings"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Get all properties",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/properties",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"properties"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all bookings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/bookings",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"bookings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all availability",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/availability?start=2025-03-01&end=2025-03-31",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"availability"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "2025-03-01"
+						},
+						{
+							"key": "end",
+							"value": "2025-03-31"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url_old",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		},
+		{
+			"key": "base_url",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
